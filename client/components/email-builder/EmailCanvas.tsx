@@ -180,7 +180,8 @@ export const EmailCanvas: React.FC<EmailCanvasProps> = ({
                       }}
                     >
                       <div className={cn(
-                        "flex w-full transition-all rounded-lg border-2 border-solid border-valasys-orange"
+                        "flex w-full transition-all rounded-lg",
+                        isGroupHovered && !isGroupSelected ? "border-2 border-dashed border-valasys-orange" : "border-2 border-solid border-valasys-orange"
                       )}>
                         {inlineBlocks.map((inlineBlock, i) => (
                           <div key={inlineBlock.id} className="flex-1" onClick={(e) => e.stopPropagation()}>
