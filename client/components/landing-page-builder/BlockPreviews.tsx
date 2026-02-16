@@ -138,7 +138,7 @@ export const HeaderBlockPreview: React.FC<BlockPreviewProps> = ({
       {/* Mobile Menu Dropdown */}
       {isMenuOpen && (
         <div className="md:hidden bg-white border-t border-gray-200">
-          <div className="flex flex-col px-4 py-2 space-y-2">
+          <div className="flex flex-col px-4 py-3 space-y-1">
             {props.navigationLinks?.map((link: any, i: number) => (
               <div
                 key={i}
@@ -146,11 +146,19 @@ export const HeaderBlockPreview: React.FC<BlockPreviewProps> = ({
                   e.stopPropagation();
                   setSelectedNavLinkIndex(i);
                   onLinkSelect?.(i, "navigation");
-                  setIsMenuOpen(false);
                 }}
-                className="py-2 px-2 hover:bg-gray-100 rounded text-sm text-gray-600 hover:text-gray-900 cursor-pointer transition-all"
+                onMouseEnter={() => setHoveredLinkIndex(i)}
+                onMouseLeave={() => setHoveredLinkIndex(null)}
+                className="hover:bg-gray-50 rounded transition-all"
               >
-                {link.label}
+                <EditableLink
+                  label={link.label}
+                  href={link.href}
+                  onUpdate={(label, href) => handleLinkUpdate(i, label, href)}
+                  inline={true}
+                  isSelected={selectedNavLinkIndex === i}
+                  isHovered={hoveredLinkIndex === i}
+                />
               </div>
             ))}
           </div>
