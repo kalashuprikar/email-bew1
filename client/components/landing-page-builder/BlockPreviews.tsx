@@ -10,10 +10,6 @@ interface BlockPreviewProps {
   onLinkSelect?: (linkIndex: number, linkType: "navigation" | "quick") => void;
 }
 
-interface HeaderBlockPreviewState {
-  selectedLinkIndex?: number;
-}
-
 export const HeaderBlockPreview: React.FC<BlockPreviewProps> = ({
   block,
   isSelected,
@@ -23,6 +19,13 @@ export const HeaderBlockPreview: React.FC<BlockPreviewProps> = ({
 }) => {
   const props = block.properties;
   const [hoveredLinkIndex, setHoveredLinkIndex] = React.useState<number | null>(null);
+  const [selectedNavLinkIndex, setSelectedNavLinkIndex] = React.useState<number | null>(null);
+
+  const handleLinkUpdate = (index: number, label: string, href: string) => {
+    const updated = [...(props.navigationLinks || [])];
+    updated[index] = { label, href };
+    onUpdate({ ...props, navigationLinks: updated });
+  };
 
   return (
     <div
@@ -39,18 +42,21 @@ export const HeaderBlockPreview: React.FC<BlockPreviewProps> = ({
               key={i}
               onClick={(e) => {
                 e.stopPropagation();
+                setSelectedNavLinkIndex(i);
                 onLinkSelect?.(i, "navigation");
               }}
               onMouseEnter={() => setHoveredLinkIndex(i)}
               onMouseLeave={() => setHoveredLinkIndex(null)}
-              className={`hover:text-gray-900 cursor-pointer px-2 py-1 rounded transition-all ${
+              className={`hover:text-gray-900 cursor-pointer px-2 py-1 rounded transition-all relative ${
                 hoveredLinkIndex === i ? "border border-dashed border-gray-400" : ""
               }`}
             >
               <EditableLink
                 label={link.label}
                 href={link.href}
+                onUpdate={(label, href) => handleLinkUpdate(i, label, href)}
                 inline={true}
+                isSelected={selectedNavLinkIndex === i}
               />
             </div>
           ))}
@@ -294,6 +300,14 @@ export const FooterBlockPreview: React.FC<BlockPreviewProps> = ({
   onLinkSelect,
 }) => {
   const props = block.properties;
+  const [hoveredQuickLinkIndex, setHoveredQuickLinkIndex] = React.useState<number | null>(null);
+  const [selectedQuickLinkIndex, setSelectedQuickLinkIndex] = React.useState<number | null>(null);
+
+  const handleQuickLinkUpdate = (index: number, label: string, href: string) => {
+    const updated = [...(props.quickLinks || [])];
+    updated[index] = { label, href };
+    onUpdate({ ...props, quickLinks: updated });
+  };
 
   return (
     <div
@@ -320,14 +334,21 @@ export const FooterBlockPreview: React.FC<BlockPreviewProps> = ({
                   key={i}
                   onClick={(e) => {
                     e.stopPropagation();
+                    setSelectedQuickLinkIndex(i);
                     onLinkSelect?.(i, "quick");
                   }}
-                  className="text-sm opacity-75 hover:opacity-100 cursor-pointer hover:opacity-70"
+                  onMouseEnter={() => setHoveredQuickLinkIndex(i)}
+                  onMouseLeave={() => setHoveredQuickLinkIndex(null)}
+                  className={`text-sm opacity-75 hover:opacity-100 cursor-pointer px-2 py-1 rounded transition-all relative ${
+                    hoveredQuickLinkIndex === i ? "border border-dashed border-gray-400" : ""
+                  }`}
                 >
                   <EditableLink
                     label={link.label}
                     href={link.href}
+                    onUpdate={(label, href) => handleQuickLinkUpdate(i, label, href)}
                     inline={true}
+                    isSelected={selectedQuickLinkIndex === i}
                   />
                 </div>
               ))}
