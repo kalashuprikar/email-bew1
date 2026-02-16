@@ -8,6 +8,7 @@ interface EditableLinkProps {
   onDelete?: () => void;
   inline?: boolean;
   isSelected?: boolean;
+  isHovered?: boolean;
 }
 
 export const EditableLink: React.FC<EditableLinkProps> = ({
@@ -16,6 +17,7 @@ export const EditableLink: React.FC<EditableLinkProps> = ({
   onUpdate,
   inline = true,
   isSelected = false,
+  isHovered = false,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editLabel, setEditLabel] = useState(label);
@@ -46,7 +48,7 @@ export const EditableLink: React.FC<EditableLinkProps> = ({
           if (e.key === 'Enter') handleSave();
           if (e.key === 'Escape') handleCancel();
         }}
-        className="text-xs px-3 py-2 border border-valasys-orange rounded-full bg-white focus:outline-none focus:border-valasys-orange w-32 z-50"
+        className="text-xs px-3 py-2 border border-solid border-valasys-orange rounded-full bg-white focus:outline-none w-40 z-50"
         autoFocus
       />
     );
@@ -58,9 +60,9 @@ export const EditableLink: React.FC<EditableLinkProps> = ({
         e.stopPropagation();
         setIsEditing(true);
       }}
-      className={`cursor-pointer hover:opacity-70 transition-all ${
-        isSelected ? "font-semibold text-valasys-orange" : ""
-      }`}
+      className={`cursor-pointer px-3 py-2 rounded-full transition-all ${
+        isHovered ? "border border-dashed border-gray-400" : ""
+      } ${isSelected ? "font-semibold text-valasys-orange" : ""}`}
       title="Click to edit"
     >
       {inline ? <span>{label}</span> : <a href={href}>{label}</a>}

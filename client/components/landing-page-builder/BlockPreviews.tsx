@@ -56,9 +56,7 @@ export const HeaderBlockPreview: React.FC<BlockPreviewProps> = ({
               }}
               onMouseEnter={() => setHoveredLinkIndex(i)}
               onMouseLeave={() => setHoveredLinkIndex(null)}
-              className={`hover:text-gray-900 cursor-pointer px-2 py-1 rounded transition-all relative ${
-                hoveredLinkIndex === i ? "border border-dashed border-gray-400" : ""
-              }`}
+              className="hover:text-gray-900 cursor-pointer transition-all"
             >
               <EditableLink
                 label={link.label}
@@ -66,6 +64,7 @@ export const HeaderBlockPreview: React.FC<BlockPreviewProps> = ({
                 onUpdate={(label, href) => handleLinkUpdate(i, label, href)}
                 inline={true}
                 isSelected={selectedNavLinkIndex === i}
+                isHovered={hoveredLinkIndex === i}
               />
             </div>
           ))}
@@ -348,9 +347,7 @@ export const FooterBlockPreview: React.FC<BlockPreviewProps> = ({
                   }}
                   onMouseEnter={() => setHoveredQuickLinkIndex(i)}
                   onMouseLeave={() => setHoveredQuickLinkIndex(null)}
-                  className={`text-sm opacity-75 hover:opacity-100 cursor-pointer px-2 py-1 rounded transition-all relative ${
-                    hoveredQuickLinkIndex === i ? "border border-dashed border-gray-400" : ""
-                  }`}
+                  className="text-sm opacity-75 hover:opacity-100 cursor-pointer transition-all"
                 >
                   <EditableLink
                     label={link.label}
@@ -358,6 +355,7 @@ export const FooterBlockPreview: React.FC<BlockPreviewProps> = ({
                     onUpdate={(label, href) => handleQuickLinkUpdate(i, label, href)}
                     inline={true}
                     isSelected={selectedQuickLinkIndex === i}
+                    isHovered={hoveredQuickLinkIndex === i}
                   />
                 </div>
               ))}
