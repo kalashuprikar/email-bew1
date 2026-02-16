@@ -119,6 +119,93 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
             </div>
             <div>
               <Label className="text-xs font-semibold text-gray-700 mb-2 block">
+                Headline Text Color
+              </Label>
+              <div className="flex gap-2">
+                <Input
+                  type="color"
+                  value={props.headlineColor || "#1f2937"}
+                  onChange={(e) =>
+                    onBlockUpdate({
+                      ...block,
+                      properties: { ...props, headlineColor: e.target.value },
+                    })
+                  }
+                  className="w-12 h-10 cursor-pointer"
+                />
+                <Input
+                  type="text"
+                  value={props.headlineColor || "#1f2937"}
+                  onChange={(e) =>
+                    onBlockUpdate({
+                      ...block,
+                      properties: { ...props, headlineColor: e.target.value },
+                    })
+                  }
+                  className="flex-1 focus:ring-valasys-orange focus:ring-2"
+                />
+              </div>
+            </div>
+            <div>
+              <Label className="text-xs font-semibold text-gray-700 mb-2 block">
+                Subheading Text Color
+              </Label>
+              <div className="flex gap-2">
+                <Input
+                  type="color"
+                  value={props.subheadingColor || "#4b5563"}
+                  onChange={(e) =>
+                    onBlockUpdate({
+                      ...block,
+                      properties: { ...props, subheadingColor: e.target.value },
+                    })
+                  }
+                  className="w-12 h-10 cursor-pointer"
+                />
+                <Input
+                  type="text"
+                  value={props.subheadingColor || "#4b5563"}
+                  onChange={(e) =>
+                    onBlockUpdate({
+                      ...block,
+                      properties: { ...props, subheadingColor: e.target.value },
+                    })
+                  }
+                  className="flex-1 focus:ring-valasys-orange focus:ring-2"
+                />
+              </div>
+            </div>
+            <div>
+              <Label className="text-xs font-semibold text-gray-700 mb-2 block">
+                Button Text Color
+              </Label>
+              <div className="flex gap-2">
+                <Input
+                  type="color"
+                  value={props.ctaButtonTextColor || "#ffffff"}
+                  onChange={(e) =>
+                    onBlockUpdate({
+                      ...block,
+                      properties: { ...props, ctaButtonTextColor: e.target.value },
+                    })
+                  }
+                  className="w-12 h-10 cursor-pointer"
+                />
+                <Input
+                  type="text"
+                  value={props.ctaButtonTextColor || "#ffffff"}
+                  onChange={(e) =>
+                    onBlockUpdate({
+                      ...block,
+                      properties: { ...props, ctaButtonTextColor: e.target.value },
+                    })
+                  }
+                  className="flex-1 focus:ring-valasys-orange focus:ring-2"
+                />
+              </div>
+            </div>
+            <div>
+              <Label className="text-xs font-semibold text-gray-700 mb-2 block">
                 Background Color
               </Label>
               <div className="flex gap-2">

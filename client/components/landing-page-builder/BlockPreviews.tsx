@@ -309,7 +309,8 @@ export const HeroBlockPreview: React.FC<BlockPreviewProps> = ({
             />
           ) : (
             <h1
-              className="text-2xl md:text-5xl font-bold text-gray-900 cursor-text"
+              className="text-2xl md:text-5xl font-bold cursor-text"
+              style={{ color: props.headlineColor || "#1f2937" }}
               onDoubleClick={(e) => {
                 e.stopPropagation();
                 setEditHeadingText(props.headline || "");
@@ -425,7 +426,8 @@ export const HeroBlockPreview: React.FC<BlockPreviewProps> = ({
             />
           ) : (
             <p
-              className="text-sm md:text-xl text-gray-600 cursor-text"
+              className="text-sm md:text-xl cursor-text"
+              style={{ color: props.subheadingColor || "#4b5563" }}
               onDoubleClick={(e) => {
                 e.stopPropagation();
                 setEditSubheadingText(props.subheading || "");
@@ -542,8 +544,11 @@ export const HeroBlockPreview: React.FC<BlockPreviewProps> = ({
             />
           ) : (
             <button
-              style={{ backgroundColor: props.ctaButtonColor }}
-              className="px-6 md:px-8 py-2 md:py-3 text-white font-medium rounded hover:opacity-90 transition-opacity text-sm md:text-base cursor-text"
+              style={{
+                backgroundColor: props.ctaButtonColor,
+                color: props.ctaButtonTextColor || "#ffffff"
+              }}
+              className="px-6 md:px-8 py-2 md:py-3 font-medium rounded hover:opacity-90 transition-opacity text-sm md:text-base cursor-text"
               onDoubleClick={(e) => {
                 e.stopPropagation();
                 setEditButtonText(props.ctaButtonText || "");
