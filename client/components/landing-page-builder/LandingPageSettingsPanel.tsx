@@ -60,11 +60,13 @@ export const LandingPageSettingsPanel: React.FC<
         <div className="sticky top-0 z-10 bg-white border-b border-gray-200 p-4">
           <button
             onClick={() => onElementSelect?.(null)}
-            className="text-sm text-gray-600 hover:text-gray-900 mb-2"
+            className="text-xs text-valasys-orange hover:text-orange-700 font-medium mb-2 inline-flex items-center gap-1"
           >
-            ← Back to block
+            ← Back to Block
           </button>
-          <h3 className="font-semibold text-gray-900">Edit {elementLabels[selectedElement]}</h3>
+          <h3 className="font-semibold text-gray-900 text-sm">
+            {elementLabels[selectedElement]} Sizing & Styling
+          </h3>
         </div>
 
         <div className="flex-1 p-4">
@@ -98,6 +100,29 @@ export const LandingPageSettingsPanel: React.FC<
                     />
                   </div>
                 </div>
+                <div className="border-t border-gray-200 pt-4 mt-4">
+                  <Label className="text-sm font-medium block mb-3">Size & Spacing</Label>
+                  <div>
+                    <Label className="text-xs text-gray-600 mb-1 block">Width</Label>
+                    <Input
+                      type="text"
+                      value={localProps.headlineWidth || "100%"}
+                      onChange={(e) => updateProperty("headlineWidth", e.target.value)}
+                      placeholder="100%, 500px, etc."
+                      className="w-full"
+                    />
+                  </div>
+                  <div className="mt-3">
+                    <Label className="text-xs text-gray-600 mb-1 block">Height</Label>
+                    <Input
+                      type="text"
+                      value={localProps.headlineHeight || "auto"}
+                      onChange={(e) => updateProperty("headlineHeight", e.target.value)}
+                      placeholder="auto, 200px, etc."
+                      className="w-full"
+                    />
+                  </div>
+                </div>
               </>
             )}
             {selectedElement === "subheading" && (
@@ -126,6 +151,29 @@ export const LandingPageSettingsPanel: React.FC<
                       onChange={(e) => updateProperty("subheadingColor", e.target.value)}
                       placeholder="#4b5563"
                       className="flex-1"
+                    />
+                  </div>
+                </div>
+                <div className="border-t border-gray-200 pt-4 mt-4">
+                  <Label className="text-sm font-medium block mb-3">Size & Spacing</Label>
+                  <div>
+                    <Label className="text-xs text-gray-600 mb-1 block">Width</Label>
+                    <Input
+                      type="text"
+                      value={localProps.subheadingWidth || "100%"}
+                      onChange={(e) => updateProperty("subheadingWidth", e.target.value)}
+                      placeholder="100%, 500px, etc."
+                      className="w-full"
+                    />
+                  </div>
+                  <div className="mt-3">
+                    <Label className="text-xs text-gray-600 mb-1 block">Height</Label>
+                    <Input
+                      type="text"
+                      value={localProps.subheadingHeight || "auto"}
+                      onChange={(e) => updateProperty("subheadingHeight", e.target.value)}
+                      placeholder="auto, 100px, etc."
+                      className="w-full"
                     />
                   </div>
                 </div>
@@ -260,9 +308,19 @@ export const LandingPageSettingsPanel: React.FC<
   if (!block) {
     return (
       <div className="bg-white border-l border-gray-200 p-6 h-full flex flex-col items-center justify-center">
-        <p className="text-gray-500 text-sm text-center">
-          Select a block to edit its properties
-        </p>
+        <div className="text-center space-y-4">
+          <p className="text-gray-900 text-sm font-semibold">Select a Block</p>
+          <p className="text-gray-500 text-xs leading-relaxed">
+            Click on any block in the center to select it and edit its properties.
+          </p>
+          <div className="pt-4 border-t border-gray-200 space-y-2">
+            <p className="text-gray-700 text-xs font-medium">For Hero Blocks:</p>
+            <ul className="text-gray-500 text-xs space-y-1">
+              <li>• Click block background to edit settings</li>
+              <li>• Click headline/subheading text to size them</li>
+            </ul>
+          </div>
+        </div>
       </div>
     );
   }
@@ -483,7 +541,8 @@ export const LandingPageSettingsPanel: React.FC<
               const numericOnly = inputValue.replace(/[^0-9]/g, "");
 
               if (numericOnly === "") {
-                return; // Don't save empty values
+                updateProperty("width", "100%"); // Reset to default
+                return;
               }
 
               const num = parseInt(numericOnly, 10);
@@ -535,7 +594,8 @@ export const LandingPageSettingsPanel: React.FC<
               const numericOnly = inputValue.replace(/[^0-9]/g, "");
 
               if (numericOnly === "") {
-                return; // Don't save empty values
+                updateProperty("minHeight", "500px"); // Reset to default
+                return;
               }
 
               updateProperty("minHeight", `${numericOnly}px`);
@@ -1407,6 +1467,11 @@ export const LandingPageSettingsPanel: React.FC<
         <h3 className="font-semibold text-gray-900">
           {block.type.charAt(0).toUpperCase() + block.type.slice(1)} Settings
         </h3>
+        {block.type === "hero" && (
+          <p className="text-xs text-gray-600 mt-2">
+            Click on headline or subheading text to edit sizing
+          </p>
+        )}
       </div>
 
       <div className="flex-1 p-4">
