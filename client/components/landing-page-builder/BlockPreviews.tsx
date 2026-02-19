@@ -1,6 +1,5 @@
 import React from "react";
-import { Menu, X, Copy, Trash2, GripVertical } from "lucide-react";
-import { useDrag, useDrop } from "react-dnd";
+import { Menu, X, Copy, Trash2 } from "lucide-react";
 import { LandingPageBlock } from "./types";
 import { EditableLink } from "./EditableLink";
 
@@ -13,63 +12,6 @@ interface BlockPreviewProps {
   onUpdate: (props: Record<string, any>) => void;
   onLinkSelect?: (linkIndex: number, linkType: "navigation" | "quick") => void;
 }
-
-interface DraggableHeroElementProps {
-  elementId: string;
-  elementType: "heading" | "subheading" | "button";
-  blockId: string;
-  children: React.ReactNode;
-  isSelected: boolean;
-  onDrop: (draggedElementId: string, targetElementId: string) => void;
-  onClick: () => void;
-}
-
-const DraggableHeroElement: React.FC<DraggableHeroElementProps> = ({
-  elementId,
-  elementType,
-  blockId,
-  children,
-  isSelected,
-  onDrop,
-  onClick,
-}) => {
-  const [{ isDragging }, drag] = useDrag(() => ({
-    type: `hero-element-${blockId}`,
-    item: { elementId, elementType },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
-  }));
-
-  const [{ isOver }, drop] = useDrop(() => ({
-    accept: `hero-element-${blockId}`,
-    drop: (item: { elementId: string; elementType: string }) => {
-      if (item.elementId !== elementId) {
-        onDrop(item.elementId, elementId);
-      }
-    },
-    collect: (monitor) => ({
-      isOver: monitor.isOver(),
-    }),
-  }));
-
-  return (
-    <div
-      ref={(node) => {
-        drag(drop(node));
-      }}
-      onClick={onClick}
-      className={`relative transition-all ${isDragging ? "opacity-50" : ""} ${
-        isOver ? "bg-orange-50 border-2 border-orange-300" : ""
-      }`}
-    >
-      <div className="absolute left-0 top-0 flex items-center gap-1 opacity-0 hover:opacity-100 transition-opacity">
-        <GripVertical className="w-4 h-4 text-gray-400 cursor-grab active:cursor-grabbing" />
-      </div>
-      {children}
-    </div>
-  );
-};
 
 export const HeaderBlockPreview: React.FC<BlockPreviewProps> = ({
   block,
@@ -347,9 +289,6 @@ export const HeroBlockPreview: React.FC<BlockPreviewProps> = ({
         onElementSelect?.("heading");
       }}
     >
-      <div className="absolute -left-6 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-        <GripVertical className="w-4 h-4 text-gray-400" />
-      </div>
       {isEditingHeading ? (
         <input
           type="text"
@@ -421,9 +360,6 @@ export const HeroBlockPreview: React.FC<BlockPreviewProps> = ({
         onElementSelect?.("subheading");
       }}
     >
-      <div className="absolute -left-6 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-        <GripVertical className="w-4 h-4 text-gray-400" />
-      </div>
       {isEditingSubheading ? (
         <input
           type="text"
@@ -495,9 +431,6 @@ export const HeroBlockPreview: React.FC<BlockPreviewProps> = ({
         onElementSelect?.("button");
       }}
     >
-      <div className="absolute -left-6 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-        <GripVertical className="w-4 h-4 text-gray-400" />
-      </div>
       {isEditingButton ? (
         <input
           type="text"
