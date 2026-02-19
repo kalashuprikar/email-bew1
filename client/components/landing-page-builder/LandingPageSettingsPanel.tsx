@@ -60,11 +60,13 @@ export const LandingPageSettingsPanel: React.FC<
         <div className="sticky top-0 z-10 bg-white border-b border-gray-200 p-4">
           <button
             onClick={() => onElementSelect?.(null)}
-            className="text-sm text-gray-600 hover:text-gray-900 mb-2"
+            className="text-xs text-valasys-orange hover:text-orange-700 font-medium mb-2 inline-flex items-center gap-1"
           >
-            ← Back to block
+            ← Back to Block
           </button>
-          <h3 className="font-semibold text-gray-900">Edit {elementLabels[selectedElement]}</h3>
+          <h3 className="font-semibold text-gray-900 text-sm">
+            {elementLabels[selectedElement]} Sizing & Styling
+          </h3>
         </div>
 
         <div className="flex-1 p-4">
@@ -306,9 +308,19 @@ export const LandingPageSettingsPanel: React.FC<
   if (!block) {
     return (
       <div className="bg-white border-l border-gray-200 p-6 h-full flex flex-col items-center justify-center">
-        <p className="text-gray-500 text-sm text-center">
-          Select a block to edit its properties
-        </p>
+        <div className="text-center space-y-4">
+          <p className="text-gray-900 text-sm font-semibold">Select a Block</p>
+          <p className="text-gray-500 text-xs leading-relaxed">
+            Click on any block in the center to select it and edit its properties.
+          </p>
+          <div className="pt-4 border-t border-gray-200 space-y-2">
+            <p className="text-gray-700 text-xs font-medium">For Hero Blocks:</p>
+            <ul className="text-gray-500 text-xs space-y-1">
+              <li>• Click block background to edit settings</li>
+              <li>• Click headline/subheading text to size them</li>
+            </ul>
+          </div>
+        </div>
       </div>
     );
   }
@@ -1455,6 +1467,11 @@ export const LandingPageSettingsPanel: React.FC<
         <h3 className="font-semibold text-gray-900">
           {block.type.charAt(0).toUpperCase() + block.type.slice(1)} Settings
         </h3>
+        {block.type === "hero" && (
+          <p className="text-xs text-gray-600 mt-2">
+            Click on headline or subheading text to edit sizing
+          </p>
+        )}
       </div>
 
       <div className="flex-1 p-4">
