@@ -2222,12 +2222,14 @@ export const ContentImageBlockPreview: React.FC<BlockPreviewProps> = ({
   return (
     <div
       onClick={onSelect}
-      className={`border cursor-pointer transition-all ${
-        isSelected ? "border-valasys-orange border-2" : "border-gray-200"
-      }`}
-      style={{ backgroundColor: props.backgroundColor || "#ffffff" }}
+      className="cursor-pointer transition-all shadow-none"
+      style={{
+        backgroundColor: props.backgroundColor || "#ffffff",
+        border: "none",
+        boxShadow: "none"
+      }}
     >
-      <div className="p-6">
+      <div className="p-6 shadow-none" style={{ border: "none", boxShadow: "none" }}>
         <div className={`flex gap-6 items-center ${
           props.imagePosition === "right" ? "flex-row-reverse" : "flex-row"
         }`}>
@@ -2237,11 +2239,11 @@ export const ContentImageBlockPreview: React.FC<BlockPreviewProps> = ({
               <img
                 src={props.imageUrl}
                 alt="Product"
-                className="w-48 h-40 object-cover rounded border-2 border-orange-300"
+                className="w-48 h-40 object-cover rounded"
               />
             )}
             {!props.imageUrl && (
-              <div className="w-48 h-40 bg-gray-200 rounded border-2 border-dotted border-gray-300 flex items-center justify-center">
+              <div className="w-48 h-40 bg-gray-200 rounded flex items-center justify-center">
                 <span className="text-gray-400 text-sm">No image</span>
               </div>
             )}

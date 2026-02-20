@@ -257,14 +257,8 @@ const DragItem: React.FC<{
     <div
       ref={ref}
       data-handler-id={handlerId}
-      className={`relative transition-all rounded cursor-pointer group mb-8 border-2 ${
+      className={`relative transition-all rounded cursor-pointer group mb-8 ${
         isDragging ? "opacity-50" : ""
-      } ${
-        isSelected
-          ? "border-solid border-valasys-orange shadow-lg shadow-orange-200 z-50"
-          : isHovered
-            ? "border-dotted border-valasys-orange z-40"
-            : "border-transparent"
       }`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -480,22 +474,22 @@ export const DraggableLandingPagePreview: React.FC<
         className={`transition-all py-8 border-2 border-dashed rounded-lg ${
           isOver
             ? "border-valasys-orange bg-orange-50"
-            : "border-gray-300 bg-gray-50"
+            : "border-transparent bg-transparent"
         }`}
       >
-        <div className="text-center">
-          <p className="text-sm text-gray-500">
-            {isOver
-              ? "Drop block here"
-              : "Drag blocks from left panel to add here"}
-          </p>
-        </div>
+        {isOver && (
+          <div className="text-center">
+            <p className="text-sm text-gray-500">
+              Drop block here
+            </p>
+          </div>
+        )}
       </div>
     );
   };
 
   return (
-    <div className="w-full bg-white rounded-lg shadow-md overflow-hidden flex flex-col gap-4 p-4">
+    <div className="w-full bg-white rounded-lg overflow-hidden flex flex-col gap-4 p-4" style={{ boxShadow: "none" }}>
       {blocks.length === 0 && <EndDropZone />}
       {blocks.map((block, index) => renderBlock(block, index))}
       {blocks.length > 0 && <EndDropZone />}
