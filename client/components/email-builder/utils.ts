@@ -1495,7 +1495,7 @@ export function renderTemplateToHTML(template: EmailTemplate): string {
   </style>
 </head>
 <body style="font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: ${docBgColor};">
-  <div style="max-width: 600px; margin: 0 auto; background-color: ${template.backgroundColor}; border-radius: 4px; box-sizing: border-box; overflow: hidden;">
+  <div style="max-width: 600px; margin: 0 auto; background-color: ${template.backgroundColor}; border-radius: 4px; padding: ${template.padding}px; box-sizing: border-box; overflow: hidden;">
     ${bodyContent}
   </div>
 </body>
@@ -1542,20 +1542,4 @@ export function deleteTemplateFromLocalStorage(id: string): void {
 export function getTemplateById(id: string): EmailTemplate | null {
   const templates = getTemplatesFromLocalStorage();
   return templates.find((t) => t.id === id) || null;
-}
-
-export function getPaddingString(block: any): string {
-  const top = block.paddingTop ?? block.padding ?? 0;
-  const right = block.paddingRight ?? block.padding ?? 0;
-  const bottom = block.paddingBottom ?? block.padding ?? 0;
-  const left = block.paddingLeft ?? block.padding ?? 0;
-  return `${top}px ${right}px ${bottom}px ${left}px`;
-}
-
-export function getMarginString(block: any): string {
-  const top = block.marginTop ?? block.margin ?? 0;
-  const right = block.marginRight ?? block.margin ?? 0;
-  const bottom = block.marginBottom ?? block.margin ?? 0;
-  const left = block.marginLeft ?? block.margin ?? 0;
-  return `${top}px ${right}px ${bottom}px ${left}px`;
 }
