@@ -32,7 +32,7 @@ import {
   generateId,
   renderTemplateToHTML,
 } from "./utils";
-import { Save, Eye, Edit, Trash2, Plus, ChevronLeft, Code, Sparkles, Layout, Download } from "lucide-react";
+import { Save, Eye, Edit, Trash2, Plus, ChevronLeft, Code, Sparkles, Layout, Download, Maximize2, Minimize2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { EmailCanvas } from "./EmailCanvas";
 import { SourceCodeView } from "./SourceCodeView";
@@ -73,6 +73,7 @@ export const EmailBuilder: React.FC<EmailBuilderProps> = ({
   const [leftSidebarTab, setLeftSidebarTab] = useState<"blocks" | "ai">("blocks");
   const [openDownloadTooltip, setOpenDownloadTooltip] = useState(false);
   const [downloaded, setDownloaded] = useState(false);
+  const [canvasScale, setCanvasScale] = useState(0.8);
 
   // Auto-save to localStorage
   useEffect(() => {
@@ -320,6 +321,25 @@ ${htmlContent.substring(htmlContent.indexOf('<div style="max-width:'), htmlConte
                   Unsaved changes
                 </span>
               </div>
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setCanvasScale(Math.max(0.5, canvasScale - 0.1))}
+                >
+                  <Minimize2 className="w-4 h-4" />
+                </Button>
+                <span className="text-sm text-gray-600 min-w-12 text-center">
+                  {Math.round(canvasScale * 100)}%
+                </span>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setCanvasScale(Math.min(2, canvasScale + 0.1))}
+                >
+                  <Maximize2 className="w-4 h-4" />
+                </Button>
+              </div>
             </div>
 
             <TooltipProvider>
@@ -396,7 +416,15 @@ ${htmlContent.substring(htmlContent.indexOf('<div style="max-width:'), htmlConte
           </div>
 
           {/* Main Content */}
-          <div className="flex-1 flex overflow-hidden">
+          <div
+            className="flex-1 flex overflow-hidden origin-top-left"
+            style={{
+              transform: `scale(${canvasScale})`,
+              transformOrigin: "top left",
+              height: `calc(100% / ${canvasScale})`,
+              width: `calc(100% / ${canvasScale})`,
+            }}
+          >
             {showSourceCode ? (
               <div className="flex-1 flex flex-col overflow-hidden">
                 <SourceCodeView template={template} />
