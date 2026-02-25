@@ -1300,6 +1300,16 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         </DialogContent>
       </Dialog>
 
+      {/* Platform Tour */}
+      <PlatformTour
+        isOpen={isTourOpen}
+        onClose={closeTour}
+        onComplete={completeTour}
+      />
+
+      {/* Mastery Bottom Bar */}
+      <MasteryBottomBar />
+
       {/* Draggable Chat Support Widget */}
       <div data-tour="chat">
         <DraggableChatSupport
@@ -1310,16 +1320,6 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
           enableDrag={true}
         />
       </div>
-
-      {/* Platform Tour */}
-      <PlatformTour
-        isOpen={isTourOpen}
-        onClose={closeTour}
-        onComplete={completeTour}
-      />
-
-      {/* Mastery Bottom Bar */}
-      <MasteryBottomBar />
     </div>
   );
 }
