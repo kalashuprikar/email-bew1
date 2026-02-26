@@ -248,11 +248,10 @@ export const LandingPageBuilder: React.FC<LandingPageBuilderProps> = ({
   }
 
   return (
-    <div style={{ transform: 'scale(0.8)', transformOrigin: 'top left', width: '125%', height: '125%' }}>
-      <DndProvider backend={HTML5Backend}>
-      <div className="flex h-screen bg-gray-100">
+    <DndProvider backend={HTML5Backend}>
+    <div className="flex h-screen bg-gray-100">
       {/* Left Sidebar - Blocks Panel */}
-      <div className="w-96 bg-white border-r border-gray-200 overflow-hidden flex flex-col">
+      <div className="w-[450px] bg-white border-r border-gray-200 overflow-hidden flex flex-col">
         <div className="sticky top-0 z-20 bg-white border-b border-gray-200 p-4">
           <Button
             variant="ghost"
@@ -278,7 +277,7 @@ export const LandingPageBuilder: React.FC<LandingPageBuilderProps> = ({
 
       {/* Middle - Sections Panel (conditional) */}
       {isSectionsPanelOpen && (
-        <div className="w-96 bg-white border-r border-gray-200 overflow-hidden flex flex-col">
+        <div className="w-[420px] bg-white border-r border-gray-200 overflow-hidden flex flex-col">
           <SectionsPanel
             onSelectTemplate={handleSelectTemplate}
             onBack={() => setIsSectionsPanelOpen(false)}
@@ -360,7 +359,7 @@ export const LandingPageBuilder: React.FC<LandingPageBuilderProps> = ({
       </div>
 
       {/* Right Sidebar - Settings or Content Panel */}
-      <div className="w-[420px] bg-white border-l border-gray-200 overflow-hidden flex flex-col">
+      <div className="w-[480px] bg-white border-l border-gray-200 overflow-hidden flex flex-col">
         {selectedElement ? (
           <ElementContentPanel
             block={selectedBlock}
@@ -390,8 +389,7 @@ export const LandingPageBuilder: React.FC<LandingPageBuilderProps> = ({
           />
         )}
       </div>
-      </div>
-      </DndProvider>
     </div>
+    </DndProvider>
   );
 };
