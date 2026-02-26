@@ -257,9 +257,7 @@ ${htmlContent.substring(htmlContent.indexOf('<div style="max-width:'), htmlConte
 
   const handleBlockSelect = useCallback((id: string | null) => {
     setSelectedBlockId(id);
-    if (id === null) {
-      setSelectedSubElementId(null);
-    }
+    setSelectedSubElementId(null);
   }, []);
 
   const handleSubElementSelect = useCallback((id: string | null) => {

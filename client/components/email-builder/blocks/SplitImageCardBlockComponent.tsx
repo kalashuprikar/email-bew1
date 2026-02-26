@@ -515,6 +515,7 @@ export const SplitImageCardBlockComponent: React.FC<
               onClick={(e) => {
                 e.stopPropagation();
                 onBlockSelect?.(block.id);
+                onSubElementSelect?.("image");
               }}
             >
               {block.image ? (
@@ -907,6 +908,7 @@ export const SplitImageCardBlockComponent: React.FC<
               onClick={(e) => {
                 e.stopPropagation();
                 onBlockSelect?.(block.id);
+                onSubElementSelect?.("image");
               }}
             >
               {block.image ? (
