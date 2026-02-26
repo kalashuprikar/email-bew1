@@ -111,6 +111,7 @@ export const BlockRenderer: React.FC<BlockRendererProps> = ({
             }
             onDuplicate={onDuplicate}
             onDelete={onDelete}
+            onSubElementSelect={onSubElementSelect}
             blockIndex={blockIndex}
           />
         </div>

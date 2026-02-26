@@ -113,6 +113,10 @@ export const ImageBlockComponent: React.FC<ImageBlockComponentProps> = ({
         padding: getPaddingString(block),
         margin: getMarginString(block),
       }}
+      onClick={(e) => {
+        // e.stopPropagation();
+        onSubElementSelect?.("image");
+      }}
     >
       {block.src ? (
         <div
